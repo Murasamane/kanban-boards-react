@@ -44,7 +44,7 @@ export default function Details({
           Subtasks ({isCompleted} of {task.subtasks.length})
         </h3>
         <form className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
             {task.subtasks.map((sub) => (
               <Checkbox
                 key={sub._id}

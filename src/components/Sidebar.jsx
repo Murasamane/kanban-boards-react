@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { motion } from "framer-motion";
 import { Link, useParams } from "react-router-dom";
 import NavIcon from "./NavIcon";
 import Toggle from "./Toggle";
@@ -10,13 +11,24 @@ function Sidebar({ onClose, onHandleDark, isDark }) {
   const { boardId } = useParams();
   const { data, isLoading } = useLinks();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return null;
 
   const isActive = (path) => path === boardId;
 
   if (!data) return null;
   return (
-    <aside className="flex flex-col  bg-white  justify-between pb-12 dark:bg-grey-400">
+    <motion.aside
+      initial={{
+        x: -100,
+      }}
+      animate={{
+        x: 0,
+      }}
+      transition={{
+        type: "tween",
+      }}
+      className="flex flex-col  bg-white  justify-between pb-12 dark:bg-grey-400"
+    >
       <nav className="pr-6 flex flex-col gap-5">
         <h2 className="font-bold text-grey-200 text-xs tracking-widest px-6">
           ALL BOARDS ({data.length})
@@ -54,7 +66,7 @@ function Sidebar({ onClose, onHandleDark, isDark }) {
       </nav>
 
       <Toggle onClose={onClose} onHandleDark={onHandleDark} isDark={isDark} />
-    </aside>
+    </motion.aside>
   );
 }
 

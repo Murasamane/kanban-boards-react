@@ -18,10 +18,10 @@ export default function Menu({ title, id, columnId, task, columnList }) {
           </button>
         </Modal.Open>
       </div>
-      <Modal.Window name="edit" childClass="child-modal">
+      <Modal.Window name="edit" childClass="child-modal" child="child-modal">
         <EditTask task={task} columnList={columnList} columnId={columnId} />
       </Modal.Window>
-      <Modal.Window name="delete" childClass="child-modal">
+      <Modal.Window name="delete" child="child-modal">
         <Delete title={title} id={id} columnId={columnId} />
       </Modal.Window>
     </Modal>

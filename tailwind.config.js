@@ -42,8 +42,8 @@ export default {
         },
       },
       animation: {
-        toggleDark: "toggleDark 3s ease-in-out",
-        toggleLight: "toggleLight 3s ease-in-out",
+        toggleDark: "toggleDark 3s ease-in-out infinite",
+        toggleLight: "toggleLight 3s ease-in-out infinite",
       },
     },
   },

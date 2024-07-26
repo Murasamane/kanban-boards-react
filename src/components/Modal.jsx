@@ -24,7 +24,7 @@ function Open({ children, opens: opensWindowName }) {
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
-function Window({ children, name, text }) {
+function Window({ children, name, text, child = "" }) {
   const { openName, close } = useContext(ModalContext);
   const { isDark } = useDarkMode();
   const ref = useClick(close);
@@ -39,7 +39,7 @@ function Window({ children, name, text }) {
     >
       <div
         ref={ref}
-        className={`absolute flex flex-col space-y-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-h-extraLg w-extraLg max-w-full  p-9 bg-white border-none rounded-lg dark:bg-grey-400 `}
+        className={`absolute flex flex-col space-y-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-h-extraLg w-extraLg max-w-full  p-9 bg-white border-none rounded-lg dark:bg-grey-400 ${child}`}
       >
         {text ? (
           <h2 className="text-xl font-bold text-grey-200">{text}</h2>

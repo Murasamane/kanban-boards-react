@@ -5,9 +5,10 @@ import { generateIndex } from "../../utils/generateIndex";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateTask } from "../../services/apiFeatures";
+import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import MultiInput from "../../components/MultiInput";
 import Button from "../../components/Button";
-import { useParams } from "react-router-dom";
 
 function EditTask({ task, columnList, onCloseModal, columnId }) {
   const { title, _id, description, subtasks, status } = task;
@@ -67,10 +68,12 @@ function EditTask({ task, columnList, onCloseModal, columnId }) {
     };
 
     // console.log(taskObject);
-    mutate({ task: taskObject, id: boardId,columnId:columnId });
+    mutate({ task: taskObject, id: boardId, columnId: columnId });
   };
   return (
-    <form
+    <motion.form
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
       className="flex flex-col gap-6"
       onSubmit={handleSubmit(handleFormSubmit)}
     >
@@ -110,16 +113,18 @@ function EditTask({ task, columnList, onCloseModal, columnId }) {
         <h3 className="text-grey-200 font-bold text-xs dark:text-white">
           Subtasks
         </h3>
-        {subtaskList.map((sub) => (
-          <MultiInput
-            key={sub._id}
-            id={sub._id}
-            onClickHandler={handleRemoveSubtask}
-            register={register}
-            registerName={"subtask-title"}
-            name={sub.title}
-          />
-        ))}
+        <div className="flex flex-col gap-3 max-h-40 overflow-y-auto">
+          {subtaskList.map((sub) => (
+            <MultiInput
+              key={sub._id}
+              id={sub._id}
+              onClickHandler={handleRemoveSubtask}
+              register={register}
+              registerName={"subtask-title"}
+              name={sub.title}
+            />
+          ))}
+        </div>
         <button
           type="button"
           className="p-2 bg-shades-purple rounded-full text-primary-300 font-bold text-sm dark:bg-white"
@@ -154,7 +159,7 @@ function EditTask({ task, columnList, onCloseModal, columnId }) {
         </select>
       </div>
       <Button>Save Changes</Button>
-    </form>
+    </motion.form>
   );
 }
 

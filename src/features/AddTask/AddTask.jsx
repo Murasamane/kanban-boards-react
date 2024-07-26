@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 import { generateIndex } from "../../utils/generateIndex";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNewTask } from "../../services/apiFeatures";
@@ -57,7 +58,9 @@ function AddTask({ columns, boardId, onCloseModal }) {
     });
   };
   return (
-    <form
+    <motion.form
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
       className="flex flex-col gap-6"
       onSubmit={handleSubmit(handleFormSubmit)}
     >
@@ -104,15 +107,17 @@ function AddTask({ columns, boardId, onCloseModal }) {
         <h3 className="text-grey-200 font-bold text-xs dark:text-white">
           Subtasks
         </h3>
-        {subtaskList.map((sub) => (
-          <MultiInput
-            key={sub}
-            id={sub}
-            onClickHandler={handleRemoveSubtask}
-            register={register}
-            registerName={"subtask-title"}
-          />
-        ))}
+        <div className="flex flex-col gap-3 max-h-40 overflow-y-auto">
+          {subtaskList.map((sub) => (
+            <MultiInput
+              key={sub}
+              id={sub}
+              onClickHandler={handleRemoveSubtask}
+              register={register}
+              registerName={"subtask-title"}
+            />
+          ))}
+        </div>
         <button
           type="button"
           className="p-2 bg-shades-purple rounded-full text-primary-300 font-bold text-sm dark:bg-white"
@@ -148,7 +153,7 @@ function AddTask({ columns, boardId, onCloseModal }) {
         </select>
       </div>
       <Button>Create Task</Button>
-    </form>
+    </motion.form>
   );
 }
 

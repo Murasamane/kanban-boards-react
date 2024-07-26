@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTask } from "../../services/apiFeatures";
-
+import { motion } from "framer-motion";
 function Delete({ onCloseModal, title, id, columnId }) {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
@@ -19,7 +19,11 @@ function Delete({ onCloseModal, title, id, columnId }) {
     mutate();
   };
   return (
-    <div className="flex flex-col gap-6">
+    <motion.div
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      className="flex flex-col gap-6"
+    >
       <h2 className="font-bold text-lg text-redish-300">Delete this task?</h2>
       <p className="font-medium text-sm text-grey-200">
         Are you sure you want to delete the ‘{title}’ task and its subtasks?
@@ -39,7 +43,7 @@ function Delete({ onCloseModal, title, id, columnId }) {
           Cancel
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

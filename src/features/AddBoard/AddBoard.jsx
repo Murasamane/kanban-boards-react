@@ -2,12 +2,13 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { generateIndex } from "../../utils/generateIndex";
-import MultiInput from "../../components/MultiInput";
-import Button from "../../components/Button";
 import { createNewBoard } from "../../services/apiFeatures";
 import { useNavigate } from "react-router-dom";
+import MultiInput from "../../components/MultiInput";
+import Button from "../../components/Button";
 
 function AddBoard({ onCloseModal }) {
   const {
@@ -50,7 +51,9 @@ function AddBoard({ onCloseModal }) {
     setcolumnList(columnCount);
   };
   return (
-    <form
+    <motion.form
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
       className="flex flex-col gap-6"
       onSubmit={handleSubmit(handleFormSubmit)}
     >
@@ -77,15 +80,17 @@ function AddBoard({ onCloseModal }) {
         <h3 className="text-grey-200 font-bold text-xs dark:text-white">
           Columns
         </h3>
-        {columnList.map((sub) => (
-          <MultiInput
-            key={sub}
-            id={sub}
-            onClickHandler={handleRemoveColumn}
-            register={register}
-            registerName={"column"}
-          />
-        ))}
+        <div className="flex flex-col gap-3 max-h-40 overflow-y-auto">
+          {columnList.map((sub) => (
+            <MultiInput
+              key={sub}
+              id={sub}
+              onClickHandler={handleRemoveColumn}
+              register={register}
+              registerName={"column"}
+            />
+          ))}
+        </div>
         <button
           type="button"
           className="p-2 bg-shades-purple rounded-full text-primary-300 font-bold text-sm dark:bg-white"
@@ -95,7 +100,7 @@ function AddBoard({ onCloseModal }) {
         </button>
       </div>
       <Button>Create New Board</Button>
-    </form>
+    </motion.form>
   );
 }
 

@@ -104,16 +104,18 @@ function UpdateBoard({ board, onCloseModal }) {
         <h3 className="text-grey-200 font-bold text-xs dark:text-white">
           Columns
         </h3>
-        {columnList.map((col) => (
-          <MultiInput
-            key={col._id}
-            id={col._id}
-            onClickHandler={handleRemoveColumn}
-            register={register}
-            registerName={"column"}
-            name={col.name}
-          />
-        ))}
+        <div className="flex flex-col gap-3 max-h-40 overflow-y-auto">
+          {columnList.map((col) => (
+            <MultiInput
+              key={col._id}
+              id={col._id}
+              onClickHandler={handleRemoveColumn}
+              register={register}
+              registerName={"column"}
+              name={col.name}
+            />
+          ))}
+        </div>
         <button
           type="button"
           className="p-2 bg-shades-purple rounded-full text-primary-300 font-bold text-sm dark:bg-white"
