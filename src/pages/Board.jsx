@@ -6,6 +6,7 @@ import Empty from "../components/Empty";
 import Modal from "../components/Modal";
 import UpdateBoard from "../features/UpdateBoard/UpdateBoard";
 import NotFound from "./NotFound";
+import Loader from "../components/Loader";
 
 export default function Board() {
   const { boardId } = useParams();
@@ -14,7 +15,7 @@ export default function Board() {
     queryFn: () => getBoard(boardId),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
 
   if (!data) return <NotFound />;
   if (data.columns.length < 1) return <Empty board={data} />;

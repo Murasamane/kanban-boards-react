@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllBoards } from "../services/apiFeatures";
 import BoardCard from "../components/BoardCard";
+import Loader from "../components/Loader";
 
 function Homepage() {
   const { data, isLoading } = useQuery({
@@ -8,7 +9,7 @@ function Homepage() {
     queryFn: getAllBoards,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loader />;
   return (
     <div className="flex items-center flex-wrap gap-4">
       {data.map((board) => (
